@@ -12,6 +12,7 @@ namespace ViceCity.Models.Players
 
         public MainPlayer() : base(mainName, initialLP)
         {
+
         }
     }
 }
