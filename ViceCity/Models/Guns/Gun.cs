@@ -5,18 +5,20 @@ using ViceCity.Models.Guns.Contracts;
 
 namespace ViceCity.Models.Guns
 {
-    class Gun : IGun
+    public abstract class Gun : IGun
     {
         private string name;
         private int bulletsPerBarrel;
         private int totalBullets;
         private int barelCapacity;
+        private bool canFire;
 
         public Gun(string name, int bulletsPerBarrel, int totalBullets)
         {
             this.Name = name;
             this.BulletsPerBarrel = bulletsPerBarrel;
-            this.totalBullets = totalBullets;
+            this.TotalBullets = totalBullets;
+            this.CanFire = canFire;
             this.barelCapacity = bulletsPerBarrel;
         }
 
@@ -36,7 +38,7 @@ namespace ViceCity.Models.Guns
         public int BulletsPerBarrel
         {
             get => this.bulletsPerBarrel;
-            private set
+            protected set
             {
                 if (value < 0)
                 {
@@ -49,7 +51,7 @@ namespace ViceCity.Models.Guns
         public int TotalBullets
         {
             get => totalBullets;
-            set
+            protected set
             {
                 if (value < 0)
                 {
@@ -59,11 +61,39 @@ namespace ViceCity.Models.Guns
             }
         }
 
-        public bool CanFire => this.
-
-        public int Fire()
+        public bool CanFire
         {
-            throw new NotImplementedException();
+            get => this.CanFire;
+            protected set
+            {
+                if (this.bulletsPerBarrel > 0)
+                {
+                    value = true;
+                }
+                else
+                {
+                    value = false;
+                }
+            }
+        }
+        public int BarelCapacity { get; }
+
+        public virtual int Fire()
+        {
+            if (canFire == false)
+            {
+                if (totalBullets > 0)
+                {
+                    this.bulletsPerBarrel += barelCapacity;
+                    this.totalBullets -= barelCapacity;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            bulletsPerBarrel--;
+            return 1;
         }
     }
 }
