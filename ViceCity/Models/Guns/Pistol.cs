@@ -6,7 +6,10 @@ namespace ViceCity.Models.Guns
 {
     class Pistol : Gun
     {
-        public Pistol(string name, int bulletsPerBarrel, int totalBullets) : base(name, bulletsPerBarrel, totalBullets)
+        private static int InitialBulletsPerBarrel = 10;
+        private static int InitialTotalBullets = 100;
+
+        public Pistol(string name) : base(name, InitialBulletsPerBarrel, InitialTotalBullets)
         {
         }
 
