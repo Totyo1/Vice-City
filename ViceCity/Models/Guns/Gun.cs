@@ -29,40 +29,40 @@ namespace ViceCity.Models.Guns
                 {
                     throw new ArgumentException("Name cannot be null or a white space!");
                 }
-                name = value;
+                this.name = value;
             }
 
         }
 
         public int BulletsPerBarrel
         {
-            get => bulletsPerBarrel;
+            get => this.bulletsPerBarrel;
             set
             {
                 if (value < 0)
                 {
                     throw new ArgumentException("Bullets cannot be below zero!");
                 }
-                bulletsPerBarrel = value;
+                this.bulletsPerBarrel = value;
             }
         }
 
         public int TotalBullets
         {
-            get => totalBullets;
+            get => this.totalBullets;
             set
             {
                 if (value < 0)
                 {
                     throw new ArgumentException("Total bullets cannot be below zero!");
                 }
-                totalBullets = value;
+                this.totalBullets = value;
             }
         }
 
         public bool CanFire
         {
-            get => canFire;
+            get => this.canFire;
             set
             {
                 value = bulletsPerBarrel == 0 && totalBullets == 0 ? false : true;
