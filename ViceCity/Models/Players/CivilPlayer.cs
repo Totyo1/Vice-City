@@ -6,7 +6,8 @@ namespace ViceCity.Models.Players
 {
     class CivilPlayer : Player
     {
-        public CivilPlayer(string name, int lifePoints) : base(name, lifePoints)
+        private const int InitialLife = 50;
+        public CivilPlayer(string name) : base(name,InitialLife)
         {
         }
     }
