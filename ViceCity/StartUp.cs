@@ -8,12 +8,12 @@ namespace ViceCity
     public class StartUp
     {
        IEngine engine;
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Console.WriteLine("a.b.v");
+
             //IEngine engine = new Engine();
             //engine.Run();
-            
+
             
             
         }
