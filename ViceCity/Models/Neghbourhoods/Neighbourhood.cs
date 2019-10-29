@@ -13,21 +13,68 @@ namespace ViceCity.Models.Neghbourhoods
 
         public void Action(IPlayer mainPlayer, ICollection<IPlayer> civilPlayers)
         {
-            while (mainPlayer.GunRepository.Models.Count != 0 && civilPlayers.Count != 0)
+            IGun currGun = null;
+            IPlayer currPlayer = null;
+            while (true)
             {
-                var currGun = mainPlayer.GunRepository.Models[0];
-                mainPlayer.GunRepository.Models.Remove(currGun);
-                var currPlayer = civilPlayers.First();
-                civilPlayers.Remove(currPlayer);
-
+                if (currGun == null || !currGun.CanFire)
+                {
+                    currGun = mainPlayer.GunRepository.Models[0];
+                    mainPlayer.GunRepository.Models.Remove(currGun);
+                }
+                if (currPlayer == null || !currPlayer.IsAlive)
+                {
+                    currPlayer = civilPlayers.First();
+                    civilPlayers.Remove(currPlayer);
+                }
 
                 while (currGun.CanFire && currPlayer.IsAlive)
                 {
-
                     currPlayer.TakeLifePoints(currGun.Fire());
+                }
+                if (mainPlayer.GunRepository.Models.Count == 0 && !currGun.CanFire)
+                {
+                    break;
+                }
+                if (civilPlayers.Count == 0 && currPlayer.IsAlive)
+                {
+                    break;
+                }
+            }
+
+            if (mainPlayer.GunRepository.Models.Count == 0)
+            {
+                
+                while ((civilPlayers.Count != 0 && currPlayer.IsAlive) && mainPlayer.IsAlive)
+                {
+
+                    currGun = currPlayer.GunRepository.Models[0];
+                    currPlayer.GunRepository.Remove(currGun);
+                    while (currGun.CanFire && mainPlayer.IsAlive)
+                    {
+                        mainPlayer.TakeLifePoints(currGun.Fire());
+                    }
+                    if (!currGun.CanFire)
+                    {
+                        if (currPlayer.GunRepository.Models.Count != 0)
+                        {
+                            currGun = currPlayer.GunRepository.Models[0];
+                            currPlayer.GunRepository.Remove(currGun);
+                        }
+                        else
+                        {
+                            currPlayer = civilPlayers.First();
+                            civilPlayers.Remove(currPlayer);
+                        }
+                        
+                    }
+
+
                 }
 
             }
         }
+
+
     }
 }
