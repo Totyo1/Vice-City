@@ -12,6 +12,10 @@ namespace ViceCity.Models.Guns
         private int totalBullets;
         private bool canFire;
 
+        public Gun()
+        {
+        }
+
         public Gun(string name, int bulletsPerBarrel, int totalBullets)
         {
             this.Name = name;
