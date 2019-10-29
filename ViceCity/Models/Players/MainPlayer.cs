@@ -8,7 +8,7 @@ namespace ViceCity.Models.Players
     {
 
         private const string MainName = "Tommy Vercetti";
-        private const int MainInitialLife = b100;
+        private const int MainInitialLife = 100;
         public MainPlayer() : base(MainName, MainInitialLife)
         {
 
