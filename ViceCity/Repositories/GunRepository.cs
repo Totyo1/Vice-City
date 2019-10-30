@@ -8,26 +8,43 @@ using ViceCity.Repositories.Contracts;
 namespace ViceCity.Repositories
 {
     class GunRepository : IRepository<IGun>
-
     {
-        private List<IGun> models;
+        private IDictionary<string, IGun> guns;
 
-        public List <IGun> Models { get; set; }
-       
- public void Add(IGun model)
+        public IReadOnlyCollection<IGun> Models => this.guns.Values.ToList().AsReadOnly();
+
+        public void Add(IGun model)
         {
-            this.models.Add( model);
+            if (this.guns.ContainsKey(model.Name))
+            {
+                return;
+            }
+            this.guns[model.Name] = model;
         }
 
         public IGun Find(string name)
         {
-            return models.Where(m => m.Name.Equals(name)).FirstOrDefault();
+            return this.GetByName(name);
         }
 
         public bool Remove(IGun model)
         {
-            this.models.Remove(model);
+            var gun = this.GetByName(model.Name);
+            if (gun == null)
+            {
+                return false;
+            }
+            this.guns.Remove(model.Name);
             return true;
+        }
+
+        private IGun GetByName (string name)
+        {
+            if (!this.guns.ContainsKey(name))
+            {
+                return null;
+            }
+            return this.guns[name];
         }
     }
 }

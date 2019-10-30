@@ -59,7 +59,7 @@ namespace ViceCity.Core.Contracts
                 return $"Civil player with that name doesn't exists!";
             }
             civilPlayers[name].GunRepository.Add(guns.Dequeue());
-            return $"Successfully added {civilPlayers[name].GunRepository.Models} to the Civil Player: {name}";
+            return $"Successfully added {civilPlayers[name].GunRepository.Models[civilPlayers[name].GunRepository.Models.Count -1].Name} to the Civil Player: {name}";
         }
 
         public string AddPlayer(string name)

@@ -7,7 +7,7 @@ namespace ViceCity.Repositories.Contracts
 {
     public interface IRepository<T>
     {
-        List<IGun> Models { get; }
+        IReadOnlyCollection<IGun> Models { get; }
 
         void Add(IGun model);
 

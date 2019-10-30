@@ -8,7 +8,7 @@ using ViceCity.Models.Players.Contracts;
 
 namespace ViceCity.Models.Neghbourhoods
 {
-    class Neighbourhood : INeighbourhood
+    class GangNeighbourhood : INeighbourhood
     {
 
         public void Action(IPlayer mainPlayer, ICollection<IPlayer> civilPlayers)
@@ -19,7 +19,7 @@ namespace ViceCity.Models.Neghbourhoods
             {
                 if (currGun == null || !currGun.CanFire)
                 {
-                    currGun = mainPlayer.GunRepository.Models[0];
+                    currGun = mainPlayer.GunRepository[0];
                     mainPlayer.GunRepository.Models.Remove(currGun);
                 }
                 if (currPlayer == null || !currPlayer.IsAlive)
