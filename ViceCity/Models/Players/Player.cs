@@ -8,11 +8,11 @@ using ViceCity.Repositories.Contracts;
 
 namespace ViceCity.Models.Players
 {
-    class Player : IPlayer
+    public class Player : IPlayer
     {
         private string name;
         private int lifePoints;
-        private IRepository<IGun> gunRepository;
+        private readonly IRepository<IGun> gunRepository;
         private bool isAlive;
 
         public Player(string name, int lifePoints)
@@ -55,9 +55,9 @@ namespace ViceCity.Models.Players
             {
                 if (this.lifePoints <= 0)
                 {
-                    value = false;
+                    this.isAlive = false;
                 }
-                value = true;
+                this.isAlive = true;
             }
         }
 

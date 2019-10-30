@@ -7,9 +7,9 @@ using ViceCity.Repositories.Contracts;
 
 namespace ViceCity.Repositories
 {
-    class GunRepository : IRepository<IGun>
+    public class GunRepository : IRepository<IGun>
     {
-        private IDictionary<string, IGun> guns;
+        private readonly IDictionary<string, IGun> guns;
 
         public IReadOnlyCollection<IGun> Models => this.guns.Values.ToList().AsReadOnly();
 
@@ -35,6 +35,7 @@ namespace ViceCity.Repositories
                 return false;
             }
             this.guns.Remove(model.Name);
+
             return true;
         }
 
@@ -44,6 +45,7 @@ namespace ViceCity.Repositories
             {
                 return null;
             }
+
             return this.guns[name];
         }
     }

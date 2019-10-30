@@ -7,13 +7,11 @@ namespace ViceCity
 {
     public class StartUp
     {
-       IEngine engine;
+        
         public static void Main(string[] args)
         {
 
-            //IEngine engine = new Engine();
-            //engine.Run();
-
+           
             
             
         }

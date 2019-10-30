@@ -9,7 +9,7 @@ using ViceCity.Models.Players.Contracts;
 
 namespace ViceCity.Core.Contracts
 {
-    class Controller : IController
+    public class Controller : IController
     {
         private Queue<IGun> guns;
         private Dictionary<string, IPlayer> civilPlayers;
@@ -49,23 +49,34 @@ namespace ViceCity.Core.Contracts
             {
                 return $"There are no guns in the queue!";
             }
-            if (name == "Vercetti")
+            
+            if (civilPlayers.ContainsKey(name))
             {
-                mainPlayer.GunRepository.Add(guns.Dequeue());
-                return $"Successfully added {mainPlayer.GunRepository.Models[mainPlayer.GunRepository.Models.Count -1].Name} to the Main Player: Tommy Vercetti";
+                var gun = guns.Dequeue();
+                if (name == "Vercetti")
+                {
+                    mainPlayer.GunRepository.Add(gun);
+                    return $"Successfully added {gun.Name} to the Main Player: Tommy Vercetti";
+                }
+                else
+                {
+                    civilPlayers[name].GunRepository.Add(gun);
+                    return $"Successfully added {gun.Name} to the Civil Player: {name}";
+                }
             }
-            if (!civilPlayers.ContainsKey(name))
+            else
             {
                 return $"Civil player with that name doesn't exists!";
             }
-            civilPlayers[name].GunRepository.Add(guns.Dequeue());
-            return $"Successfully added {civilPlayers[name].GunRepository.Models[civilPlayers[name].GunRepository.Models.Count -1].Name} to the Civil Player: {name}";
+            
+           
         }
 
         public string AddPlayer(string name)
         {
             var player = new CivilPlayer(name);
             civilPlayers.Add(player.Name, player);
+
             return $"Successfully added civil player: {name}!";
         }
 

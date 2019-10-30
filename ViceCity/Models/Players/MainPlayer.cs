@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ViceCity.Models.Players
 {
-    class MainPlayer : Player
+    public class MainPlayer : Player
     {
 
         private const string MainName = "Tommy Vercetti";

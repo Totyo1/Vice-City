@@ -8,73 +8,51 @@ using ViceCity.Models.Players.Contracts;
 
 namespace ViceCity.Models.Neghbourhoods
 {
-    class GangNeighbourhood : INeighbourhood
+    public class GangNeighbourhood : INeighbourhood
     {
 
         public void Action(IPlayer mainPlayer, ICollection<IPlayer> civilPlayers)
         {
-            IGun currGun = null;
-            IPlayer currPlayer = null;
-            while (true)
+            IGun currGun = mainPlayer.GunRepository.Models.First();
+            IPlayer currPlayer = civilPlayers.First();
+
+            while ((mainPlayer.GunRepository.Models.Count != 0 && currGun.CanFire) ||
+                    (civilPlayers.Count != 0 && !currPlayer.IsAlive))
             {
-                if (currGun == null || !currGun.CanFire)
+                if (!currGun.CanFire)
                 {
-                    currGun = mainPlayer.GunRepository[0];
-                    mainPlayer.GunRepository.Models.Remove(currGun);
+                    currGun = mainPlayer.GunRepository.Models.First();
+                    mainPlayer.GunRepository.Remove(currGun);
                 }
-                if (currPlayer == null || !currPlayer.IsAlive)
+
+                if (!currPlayer.IsAlive)
                 {
                     currPlayer = civilPlayers.First();
                     civilPlayers.Remove(currPlayer);
                 }
 
-                while (currGun.CanFire && currPlayer.IsAlive)
+                while (currPlayer.IsAlive && currGun.CanFire)
                 {
                     currPlayer.TakeLifePoints(currGun.Fire());
                 }
-                if (mainPlayer.GunRepository.Models.Count == 0 && !currGun.CanFire)
-                {
-                    break;
-                }
-                if (civilPlayers.Count == 0 && currPlayer.IsAlive)
-                {
-                    break;
-                }
             }
-
-            if (mainPlayer.GunRepository.Models.Count == 0)
+            if (currPlayer.IsAlive)
             {
-                
-                while ((civilPlayers.Count != 0 && currPlayer.IsAlive) && mainPlayer.IsAlive)
+                while (civilPlayers.Count != 0 && currPlayer.GunRepository.Models.Count != 0 && !mainPlayer.IsAlive)
                 {
-
-                    currGun = currPlayer.GunRepository.Models[0];
-                    currPlayer.GunRepository.Remove(currGun);
-                    while (currGun.CanFire && mainPlayer.IsAlive)
+                    while (currPlayer.GunRepository.Models.Count != 0 || !mainPlayer.IsAlive)
                     {
-                        mainPlayer.TakeLifePoints(currGun.Fire());
-                    }
-                    if (!currGun.CanFire)
-                    {
-                        if (currPlayer.GunRepository.Models.Count != 0)
+                        currGun = currPlayer.GunRepository.Models.First();
+                        currPlayer.GunRepository.Remove(currGun);
+                        while (!mainPlayer.IsAlive || !currGun.CanFire)
                         {
-                            currGun = currPlayer.GunRepository.Models[0];
-                            currPlayer.GunRepository.Remove(currGun);
+                            mainPlayer.TakeLifePoints(currGun.Fire());
                         }
-                        else
-                        {
-                            currPlayer = civilPlayers.First();
-                            civilPlayers.Remove(currPlayer);
-                        }
-                        
                     }
-
 
                 }
-
             }
+
         }
-
-
     }
 }

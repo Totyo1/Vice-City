@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ViceCity.IO.Contracts
 {
-    interface IWriter
+    public interface IWriter
     {
         void WriteLine(string line);
 

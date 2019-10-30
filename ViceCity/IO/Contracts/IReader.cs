@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ViceCity.IO.Contracts
 {
-    interface IReader
+    public interface IReader
     {
         string ReadLine();
     }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ViceCity.Core.Contracts
 {
-    class Engine : IEngine
+    public class Engine : IEngine
     {
         public void Run()
         {

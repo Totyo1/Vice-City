@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using ViceCity.Models.Guns.Contracts;
 
 namespace ViceCity.Models.Guns
 {
-    class Gun : IGun
+    public abstract class Gun : IGun
     {
         private string name;
         private int bulletsPerBarrel;
@@ -21,7 +19,6 @@ namespace ViceCity.Models.Guns
             this.Name = name;
             this.BulletsPerBarrel = bulletsPerBarrel;
             this.TotalBullets = totalBullets;
-            
         }
         
         public string Name
@@ -35,7 +32,6 @@ namespace ViceCity.Models.Guns
                 }
                 this.name = value;
             }
-
         }
 
         public int BulletsPerBarrel
@@ -69,14 +65,10 @@ namespace ViceCity.Models.Guns
             get => this.canFire;
             set
             {
-                value = bulletsPerBarrel == 0 && totalBullets == 0 ? false : true;
-
+                this.canFire = bulletsPerBarrel == 0 && totalBullets == 0 ? false : true;
             }
         }
 
-        public virtual int Fire()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract int Fire();
     }
 }

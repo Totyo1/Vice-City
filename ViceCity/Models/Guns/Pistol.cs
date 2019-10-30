@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ViceCity.Models.Guns.Contracts
 {
-    internal class Pistol : Gun
+   public class Pistol : Gun
     {
         private const int initialBulletsPerBarel = 10;
         private const int initialTotalBullets = 100;

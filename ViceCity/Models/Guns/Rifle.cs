@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ViceCity.Models.Guns.Contracts
 {
-    class Rifle : Gun
+    public class Rifle : Gun
     {
         private const int initialBulletsPerBarel = 50;
         private const int initialTotalBullets = 500;
@@ -21,7 +21,8 @@ namespace ViceCity.Models.Guns.Contracts
                     TotalBullets -= initialBulletsPerBarel;
                     BulletsPerBarrel = initialBulletsPerBarel;
                 }
-                BulletsPerBarrel -= 5;
+
+                this.BulletsPerBarrel -= 5;
                 return 5;
             }
             else { return 0; }
