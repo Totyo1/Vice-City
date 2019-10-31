@@ -8,8 +8,7 @@ namespace ViceCity.Models.Guns.Contracts
     {
         private const int initialBulletsPerBarel = 10;
         private const int initialTotalBullets = 100;
-
-
+        
         public Pistol(string name) : base(name, initialBulletsPerBarel, initialTotalBullets)
         {
         }
@@ -23,11 +22,11 @@ namespace ViceCity.Models.Guns.Contracts
                     TotalBullets -= initialBulletsPerBarel;
                     BulletsPerBarrel = initialBulletsPerBarel;
                 }
-                BulletsPerBarrel--;
+                this.BulletsPerBarrel-- ;
+
                 return 1;
             }
             else { return 0;}
-
         }
     }
 }

@@ -20,6 +20,7 @@ namespace ViceCity.Models.Players
             this.Name = name;
             this.LifePoints = lifePoints;
             this.gunRepository = new GunRepository();
+            this.IsAlive = isAlive;
         }
 
         public string Name
@@ -51,13 +52,16 @@ namespace ViceCity.Models.Players
         public bool IsAlive
         {
             get => this.isAlive;
-            set
+            private set
             {
                 if (this.lifePoints <= 0)
                 {
                     this.isAlive = false;
                 }
-                this.isAlive = true;
+                else
+                {
+                    this.isAlive = true;
+                }
             }
         }
 
@@ -66,10 +70,6 @@ namespace ViceCity.Models.Players
         public void TakeLifePoints(int points)
         {
             this.LifePoints -= points;
-            if (lifePoints <= 0)
-            {
-                isAlive = false;
-            }
         }
     }
 }

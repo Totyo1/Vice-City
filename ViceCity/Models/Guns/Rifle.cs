@@ -12,6 +12,7 @@ namespace ViceCity.Models.Guns.Contracts
         public Rifle(string name) : base(name, initialBulletsPerBarel, initialTotalBullets)
         {
         }
+
         public override int Fire()
         {
             if (CanFire)
@@ -21,12 +22,11 @@ namespace ViceCity.Models.Guns.Contracts
                     TotalBullets -= initialBulletsPerBarel;
                     BulletsPerBarrel = initialBulletsPerBarel;
                 }
-
                 this.BulletsPerBarrel -= 5;
+
                 return 5;
             }
             else { return 0; }
-
         }
     }
 }

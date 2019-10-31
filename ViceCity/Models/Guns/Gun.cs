@@ -19,6 +19,7 @@ namespace ViceCity.Models.Guns
             this.Name = name;
             this.BulletsPerBarrel = bulletsPerBarrel;
             this.TotalBullets = totalBullets;
+            this.CanFire = canFire;
         }
         
         public string Name
@@ -56,16 +57,23 @@ namespace ViceCity.Models.Guns
                 {
                     throw new ArgumentException("Total bullets cannot be below zero!");
                 }
-                this.totalBullets = value;
+                else
+                {
+                    this.totalBullets = value;
+                }
             }
         }
 
         public bool CanFire
         {
             get => this.canFire;
-            set
+            private set
             {
-                this.canFire = bulletsPerBarrel == 0 && totalBullets == 0 ? false : true;
+                if (this.BulletsPerBarrel <= 0)
+                {
+                    this.canFire = false;
+                }
+                this.canFire = true;
             }
         }
 
